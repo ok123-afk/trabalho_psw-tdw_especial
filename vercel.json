@@ -13,7 +13,7 @@
     }
   },
   "rewrites": [
-    { "source": "/api/backend/(.*)", "destination": { "service": "backend" } },
+    { "source": "/api/backend/:path*", "destination": { "service": "backend", "path": "/:path*" } },
     { "source": "/(.*)", "destination": { "service": "frontend" } }
   ]
 }
