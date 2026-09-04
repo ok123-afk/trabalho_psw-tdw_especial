@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
 
+let conectado = false;
+
 const connectDB = async () => {
+  if (conectado && mongoose.connection.readyState === 1) return;
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI);
+    conectado = true;
     console.log('MongoDB Atlas ligado');
-    console.log(`Base de dados: ${conn.connection.name}`);
   } catch (err) {
+    conectado = false;
     console.error('Erro MongoDB:', err.message);
-    process.exit(1);
+    throw err;
   }
 };
 
