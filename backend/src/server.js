@@ -23,12 +23,16 @@ app.use(async (req, res, next) => {
 });
 
 // Rotas de teste
-app.get('/api/test', (req, res) => res.json({ ok: true, message: 'Backend MongoDB OK!' }));
+const router = express.Router();
 
-app.use('/api/veiculos', require('./routes/veiculos'));
-app.use('/api/agendamentos', require('./routes/agendamentos'));
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/oficinas', require('./routes/oficinas'));
+router.get('/api/test', (req, res) => res.json({ ok: true, message: 'Backend MongoDB OK!' }));
+
+router.use('/api/veiculos', require('./routes/veiculos'));
+router.use('/api/agendamentos', require('./routes/agendamentos'));
+router.use('/api/auth', require('./routes/auth'));
+router.use('/api/oficinas', require('./routes/oficinas'));
+
+app.use('/api/backend', router);
 
 // Só faz listen se corrido diretamente (dev local com "npm run dev")
 // No Vercel, este ficheiro é importado pela função serverless em api/index.js
