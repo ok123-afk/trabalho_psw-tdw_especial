@@ -1,0 +1,19 @@
+{
+  "services": {
+    "frontend": {
+      "root": "frontend",
+      "framework": "nextjs",
+      "bindings": [
+        { "type": "service", "service": "backend", "format": "url", "env": "BACKEND_URL" }
+      ]
+    },
+    "backend": {
+      "root": "backend",
+      "entrypoint": "api/index.js"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/backend/(.*)", "destination": { "service": "backend" } },
+    { "source": "/(.*)", "destination": { "service": "frontend" } }
+  ]
+}
