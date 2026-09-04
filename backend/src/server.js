@@ -21,5 +21,9 @@ app.use('/api/agendamentos', require('./routes/agendamentos'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/oficinas', require('./routes/oficinas'));
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Servidor http://localhost:${PORT}`));
+// Só faz listen se corrido diretamente (dev local com "npm run dev")
+// No Vercel, este ficheiro é importado pela função serverless em api/index.js
+if (require.main === module) {
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => console.log(`Servidor http://localhost:${PORT}`));
+}
